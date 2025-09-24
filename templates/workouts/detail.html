@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<article>
+	<h2>{{ object.title }}</h2>
+	{% if object.body_part == 'Chest' and object.image %}
+	  <img src='{{ object.image.url }}' style='max-width:400px;'>
+	{% endif %}
+	<p>{{ object.description }}</p>
+	<p><strong>Difficulty:</strong> {{ object.difficulty }} | <strong>Type:</strong> {{ object.type }} | <strong>Duration:</strong> {{ object.duration_minutes }} min</p>
+	<p>Likes: <span id='likeCount'>{{ object.likes }}</span></p>
+	<button id='likeBtn'>Like</button>
+	{% if user == object.author %}
+		<p><a href='{% url 'workout_edit' object.pk %}'>Edit</a> | <a href='{% url 'workout_delete' object.pk %}'>Delete</a></p>
+	{% endif %}
+</article>
+<script>
+document.getElementById('likeBtn').onclick=function(){
+	fetch("{% url 'workout_like' object.pk %}",{
+		method:'POST',
+		headers:{'X-CSRFToken':'{{ csrf_token }}'}
+	}).then(r=>r.json()).then(d=>{
+		document.getElementById('likeCount').innerText=d.likes
+	})
+}
+</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load schedule_extras %}
+{% block content %}
+<h2>Weekly Workout Schedule</h2>
+<table class="schedule-table">
+    <tr>
+        {% for day in days %}
+            <th>{{ day }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for day in days %}
+            <td>
+                {% for sched in schedule|dict_get:day %}
+                    <div><strong>{{ sched.workout.title }}</strong>{% if sched.note %}<br><small>{{ sched.note }}</small>{% endif %}</div>
+                {% empty %}
+                    <span style="color:#aaa;">No workout</span>
+                {% endfor %}
+            </td>
+        {% endfor %}
+    </tr>
+</table>
+<a href="{% url 'add_schedule' %}">Add to Schedule</a>
+{% endblock %}

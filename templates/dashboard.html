@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="dashboard-stats">
+  <div class="stat-card">
+    <h3>Workouts</h3>
+    <p>{{ stats.workouts }}</p>
+  </div>
+  <div class="stat-card">
+    <h3>Scheduled This Week</h3>
+    <p>{{ stats.scheduled }}</p>
+  </div>
+  <div class="stat-card">
+    <h3>Completed</h3>
+    <p>{{ stats.completed }}</p>
+  </div>
+</div>
+<a href="{% url 'workout_list' %}">View All Workouts</a> |
+<a href="{% url 'weekly_schedule' %}">My Schedule</a> |
+<a href="{% url 'workout_logbook' %}">Logbook</a>
+{% endblock %}

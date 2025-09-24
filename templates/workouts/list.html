@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Workouts</h2>
+<div class='grid'>
+	{% for w in workouts %}
+		<article class='card'>
+			<h3><a href='{% url 'workout_detail' w.pk %}'>{{ w.title }}</a></h3>
+			<p>{{ w.description|truncatechars:120 }}</p>
+			<small>{{ w.difficulty }} • {{ w.type }} • {{ w.duration_minutes }} min</small>
+		</article>
+	{% empty %}
+		<p>No workouts yet.</p>
+	{% endfor %}
+</div>
+{% endblock %}

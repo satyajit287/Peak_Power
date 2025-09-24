@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Progress Charts</h2>
+<canvas id="freqChart" height="100"></canvas>
+<canvas id="weightChart" height="100"></canvas>
+<canvas id="calChart" height="100"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+var freqData = JSON.parse('{{ freq_data|escapejs }}');
+var weightData = JSON.parse('{{ weight_data|escapejs }}');
+var calData = JSON.parse('{{ cal_data|escapejs }}');
+new Chart(document.getElementById('freqChart'), {
+  type: 'bar',
+  data: freqData,
+  options: { plugins: { title: { display: true, text: 'Workout Frequency (last 4 weeks)' } } }
+});
+new Chart(document.getElementById('weightChart'), {
+  type: 'line',
+  data: weightData,
+  options: { plugins: { title: { display: true, text: 'Total Weight Lifted (kg)' } } }
+});
+new Chart(document.getElementById('calChart'), {
+  type: 'line',
+  data: calData,
+  options: { plugins: { title: { display: true, text: 'Calories Burned (estimate)' } } }
+});
+</script>
+{% endblock %}

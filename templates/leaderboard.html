@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Leaderboards</h2>
+<div style="display:flex;gap:2em;flex-wrap:wrap;">
+  <div style="flex:1;min-width:220px;">
+    <h3>Top Points</h3>
+    <ol>
+      {% for p in top_points %}
+        <li>{{ p.user.username }} — <strong>{{ p.points }}</strong> pts</li>
+      {% empty %}
+        <li>No users yet.</li>
+      {% endfor %}
+    </ol>
+  </div>
+  <div style="flex:1;min-width:220px;">
+    <h3>Top Streaks</h3>
+    <ol>
+      {% for s in top_streaks %}
+        <li>{{ s.user.username }} — <strong>{{ s.current_streak }}</strong> days</li>
+      {% empty %}
+        <li>No streaks yet.</li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Meals</h2>
+<a href="{% url 'meal_add' %}">Add Meal</a>
+<table><tr><th>Date</th><th>Name</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fat</th><th>Notes</th></tr>
+{% for meal in meals %}
+<tr><td>{{ meal.date }}</td><td>{{ meal.name }}</td><td>{{ meal.calories }}</td><td>{{ meal.protein }}</td><td>{{ meal.carbs }}</td><td>{{ meal.fat }}</td><td>{{ meal.notes|linebreaks }}</td></tr>
+{% empty %}<tr><td colspan="7">No meals yet.</td></tr>{% endfor %}
+</table>
+{% endblock %}

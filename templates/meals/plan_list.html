@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Meal Plans</h2>
+<a href="{% url 'mealplan_add' %}">Add Meal Plan</a>
+<table><tr><th>Date</th><th>Meals</th><th>Notes</th></tr>
+{% for plan in plans %}
+<tr><td>{{ plan.date }}</td><td>{% for meal in plan.meals.all %}{{ meal.name }}<br>{% endfor %}</td><td>{{ plan.notes|linebreaks }}</td></tr>
+{% empty %}<tr><td colspan="3">No meal plans yet.</td></tr>{% endfor %}
+</table>
+{% endblock %}

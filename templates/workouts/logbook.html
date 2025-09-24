@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Workout Logbook</h2>
+<table>
+    <tr><th>Date</th><th>Workout</th><th>Completed</th><th>Duration (min)</th><th>Notes</th></tr>
+    {% for log in logs %}
+    <tr>
+        <td>{{ log.date }}</td>
+        <td>{{ log.workout.title }}</td>
+        <td>{% if log.completed %}✔️{% else %}❌{% endif %}</td>
+        <td>{{ log.duration }}</td>
+        <td>{{ log.notes|linebreaks }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No logs yet.</td></tr>
+    {% endfor %}
+</table>
+<a href="{% url 'log_workout' %}">Log a Workout</a>
+{% endblock %}

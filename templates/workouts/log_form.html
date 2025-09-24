@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Log Workout</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Log</button></form>
+<a href="{% url 'workout_logbook' %}">View Logbook</a>
+{% endblock %}

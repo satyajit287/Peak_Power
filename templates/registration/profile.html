@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 style="display:none;">My Profile</h2>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;">
+	{% if user.profile.avatar %}
+		<img src='{{ user.profile.avatar.url }}' class="profile-avatar" style="margin-bottom:1em;">
+	{% else %}
+		<div class="profile-avatar" style="background:#eee;display:flex;align-items:center;justify-content:center;font-size:2em;color:#bbb;margin-bottom:1em;">?</div>
+	{% endif %}
+	<div style="margin-bottom:1.5em;text-align:center;">
+		<strong>Points:</strong> {{ user.profile.points }}<br>
+		<strong>Streak:</strong> {% if streak %}{{ streak.current_streak }}{% else %}0{% endif %} days
+		{% if streak and streak.longest_streak %}<br><small>Longest: {{ streak.longest_streak }} days</small>{% endif %}
+	</div>
+	<div class="profile-form-card">
+		<h2>My Profile</h2>
+		{% if form.errors %}
+			<div style="color:#b00020;background:#ffeaea;border-radius:8px;padding:1em 1.5em;margin-bottom:1em;text-align:center;font-weight:600;">
+				Please fix the following errors:<br>
+				<ul style="margin:0.5em 0 0 0;padding-left:1.2em;text-align:left;">
+				{% for field in form %}
+					{% for error in field.errors %}
+						<li><strong>{{ field.label }}:</strong> {{ error }}</li>
+					{% endfor %}
+				{% endfor %}
+				{% for error in form.non_field_errors %}
+					<li>{{ error }}</li>
+				{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+		<style>
+		/* Hide 'Currently' and 'Clear' for avatar upload */
+		.profile-form-card .form-row span, .profile-form-card .form-row label[for$="-clear_id"],
+		.profile-form-card .clearable-file-input, .profile-form-card .checkbox { display: none !important; }
+		/* Center file input */
+		.profile-form-card input[type="file"] { display: block; margin: 0 auto 0.5em auto; }
+		</style>
+		<form method='post' enctype='multipart/form-data' style="display:flex;flex-direction:column;align-items:center;gap:1.2em;">
+			{% csrf_token %}
+			<div class="profile-form-row" style="flex-direction:column;gap:.7em;align-items:center;width:100%;">
+				<label for="id_bio" style="text-align:center;width:100%;">Bio</label>
+				<div style="width:100%;display:flex;justify-content:center;">
+					{{ form.bio }}
+				</div>
+			</div>
+			<div class="profile-form-row" style="flex-direction:column;gap:.7em;align-items:center;width:100%;">
+				<label for="id_avatar" style="text-align:center;width:100%;">Change Avatar</label>
+				<div style="width:100%;display:flex;justify-content:center;">
+					<input type="file" name="avatar" id="id_avatar" class="profile-form-input" style="margin:0 auto;" />
+				</div>
+			</div>
+			<div class="profile-form-row" style="flex-direction:column;gap:.7em;align-items:center;width:100%;">
+				<label for="id_fitness_goals" style="text-align:center;width:100%;">Fitness Goals</label>
+				<div style="width:100%;display:flex;justify-content:center;">
+					{{ form.fitness_goals }}
+				</div>
+			</div>
+			<div class="profile-form-row" style="justify-content:center;width:100%;">
+				<div class="input-group" style="justify-content:center;">
+					<label for="id_height_cm" class="input-icon">📏</label>
+					{{ form.height_cm }}
+					<span class="unit-label">cm</span>
+				</div>
+				<div class="input-group" style="justify-content:center;">
+					<label for="id_weight_kg" class="input-icon">⚖️</label>
+					{{ form.weight_kg }}
+					<span class="unit-label">kg</span>
+				</div>
+			</div>
+			<button type='submit' class="profile-form-save-btn">Save</button>
+		</form>
+		<div class="profile-section-divider"></div>
+		<h3>Fitness Goals</h3>
+		<div style="background:#f9f9f9;padding:.5em 1em;border-radius:6px;min-height:2em;">{{ user.profile.fitness_goals|linebreaks }}</div>
+		<a href="/accounts/password_change/">Change Password</a>
+		<h3 style="margin-top:2em;">Badges</h3>
+		<div style="display:flex;gap:1em;flex-wrap:wrap;justify-content:center;">
+			{% for ub in badges %}
+				<div title="{{ ub.badge.description }}" style="font-size:2em;">{{ ub.badge.icon|default:'🏅' }}</div>
+			{% empty %}
+				<span style="color:#aaa;">No badges yet.</span>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

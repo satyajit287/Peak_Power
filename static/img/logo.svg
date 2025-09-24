@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Refined Peak Power logo: compact mark + wordmark. Optimized for header usage -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">Peak Power</title>
+  <desc id="logoDesc">Peak Power logo: stylized bolt mark and bold wordmark.</desc>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0fb3b3" />
+      <stop offset="100%" stop-color="#0c8f8f" />
+    </linearGradient>
+    <style>
+      .mark { fill: url(#grad); }
+      /* wordmark uses a light color to read on teal brand pill */
+      .word { fill: #eaf6f6; font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight:800; font-size:28px; }
+      .tag { fill:#98a2a8; font-size:11px; font-weight:600 }
+    </style>
+  </defs>
+
+  <!-- compact circular mark with bolt -->
+  <g transform="translate(14,10)">
+    <circle cx="24" cy="24" r="24" class="mark" />
+    <path d="M22 10 L14 30 H21 L16 46 L34 26 H26 L32 12 Z" fill="#fff" transform="translate(0,0) scale(0.95)"/>
+  </g>
+
+  <!-- wordmark -->
+  <g transform="translate(70,38)">
+    <text class="word" x="0" y="-6">Peak</text>
+    <text class="word" x="86" y="-6">Power</text>
+    <text class="tag" x="0" y="22">Strength • Progress • Performance</text>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Search Workouts</h2>
+<form method="get">
+  <input type="text" name="q" value="{{ q }}" placeholder="Search workouts...">
+  <select name="difficulty">
+    <option value="">All Difficulties</option>
+    <option value="Easy" {% if difficulty=='Easy' %}selected{% endif %}>Easy</option>
+    <option value="Medium" {% if difficulty=='Medium' %}selected{% endif %}>Medium</option>
+    <option value="Hard" {% if difficulty=='Hard' %}selected{% endif %}>Hard</option>
+  </select>
+  <select name="body_part">
+    <option value="">All Body Parts</option>
+    <option value="Full Body" {% if body_part=='Full Body' %}selected{% endif %}>Full Body</option>
+    <option value="Chest" {% if body_part=='Chest' %}selected{% endif %}>Chest</option>
+    <option value="Back" {% if body_part=='Back' %}selected{% endif %}>Back</option>
+    <option value="Legs" {% if body_part=='Legs' %}selected{% endif %}>Legs</option>
+    <option value="Arms" {% if body_part=='Arms' %}selected{% endif %}>Arms</option>
+    <option value="Shoulders" {% if body_part=='Shoulders' %}selected{% endif %}>Shoulders</option>
+    <option value="Core" {% if body_part=='Core' %}selected{% endif %}>Core</option>
+    <option value="Other" {% if body_part=='Other' %}selected{% endif %}>Other</option>
+  </select>
+  <button type="submit">Search</button>
+</form>
+<div class="grid">
+{% for w in workouts %}
+  <article class="card">
+    <h3><a href="{% url 'workout_detail' w.pk %}">{{ w.title }}</a></h3>
+    <p>{{ w.description|truncatechars:120 }}</p>
+    <small>{{ w.difficulty }} • {{ w.body_part }} • {{ w.duration_minutes }} min</small>
+    {% if w.image %}<img src="{{ w.image.url }}" style="max-width:100%;">{% endif %}
+  </article>
+{% empty %}
+  <p>No workouts found.</p>
+{% endfor %}
+</div>
+{% endblock %}

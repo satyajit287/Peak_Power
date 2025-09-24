@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <h2 class="main-heading">Available Trainers</h2>
+  <p class="subtle">Connect with our certified trainers to personalise your workouts.</p>
+  <div class="grid spaced-grid">
+    {% for trainer in trainers %}
+      <div class="card">
+        {% if trainer.photo %}
+          <img src="{{ trainer.photo.url }}" alt="{{ trainer.name }}" class="trainer-photo"/>
+        {% endif %}
+        <h3 class="mt-0">{{ trainer.name }}</h3>
+        {% if trainer.specialties %}
+          <div class="muted-paragraph">Specialties: {{ trainer.specialties }}</div>
+        {% endif %}
+        {% if trainer.bio %}
+          <p class="muted-paragraph">{{ trainer.bio|truncatechars:180 }}</p>
+        {% endif %}
+        <div class="trainer-contact">
+          {% if trainer.email %}<div>Email: <a href="mailto:{{ trainer.email }}">{{ trainer.email }}</a></div>{% endif %}
+          {% if trainer.phone %}<div>Phone: {{ trainer.phone }}</div>{% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <p>No trainers are currently available.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
