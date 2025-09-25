@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'dev-key-change-me'
@@ -42,7 +43,7 @@ TEMPLATES = [{
 
 WSGI_APPLICATION = 'peak_power.wsgi.application'
 
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3','NAME': BASE_DIR / 'db.sqlite3'}}
+DATABASES = {'default': dj_database_url.config(default=f'sqlite:///{BASE_DIR / "db.sqlite3"}', conn_max_age=600)}
 
 AUTH_PASSWORD_VALIDATORS = []
 
