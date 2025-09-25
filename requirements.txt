@@ -3,4 +3,5 @@ psycopg2-binary==2.9.9
 gunicorn==21.2.0
 whitenoise==6.7.0
 dj_database_url==3.0.1
+djangorestframework==3.15.2
 
