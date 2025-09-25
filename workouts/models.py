@@ -150,7 +150,7 @@ class Trainer(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-active','name']
+        ordering = ['-active','name'] 
 
     def __str__(self):
         return self.name
