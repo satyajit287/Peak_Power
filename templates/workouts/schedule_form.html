@@ -1,5 +1,5 @@
-{% load static %}
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <h2>Add Workout to Schedule</h2>
 <form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Add</button></form>
